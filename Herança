@@ -1,70 +1,45 @@
-package Heranca;
+package Herança;
 
-class Pessoa {
-    String Nome;
-    int Idade;
+public class ExercicioDeHeranca {
 
-    public String getNome() {
-        return Nome;
-    }
+   public class Pessoa{
+       String Nome;
+       int Idade;
 
-    public void setNome(String Nome) {
-        this.Nome = Nome;
-    }
+       public Pessoa(String Nome, int Idade){
+           this.Nome = Nome;
+           this.Idade = Idade;
+       }
 
-    public int getIdade() {
-        return Idade;
-    }
+       void FichaFuncionario(){
+           System.out.println("O nome do funcionario é " + Nome);
+           System.out.println("A idade do funcionario é " + Idade);
 
-    public void setIdade(int Idade) {
-        this.Idade = Idade;
-    }
+   }
 
-    public void exibirInfo() {
-        System.out.println("O nome da pessoa é " + Nome);
-        System.out.println("A idade da pessoa " + Nome + " é " + Idade + " anos");
-    }
-}
+   static class Funcionario extends Pessoa{
+           public double Salario;
+           public String Cargo;
 
-class Aluno extends Pessoa {
-    String Matricula;
+           public Funcionario(double Salario, String Cargo, String Nome, int Idade){
+           super(Nome, Idade);
+           this.Cargo = Cargo;
+           this.Salario = Salario;
+           }
+   }
 
-    public Aluno(String Nome, int Idade, String Matricula) {
-        this.setNome(Nome);
-        this.setIdade(Idade);
-        this.Matricula = Matricula;
-    }
+       void calcularSalarioAnual(double Salario){
+           System.out.println(Salario * 12);
 
-    public void exibirInfo() {
-        System.out.println("O nome da pessoa é " + Nome);
-        System.out.println("A idade da pessoa " + Nome + " é " + Idade + " anos");
-        System.out.println("A matrícula da pessoa é " + Matricula);
-    }
-}
+   }
+   }
 
-class Professor extends Pessoa {
-    double Salario;
+   public void main(String[] args) {
+       Pessoa p = new Pessoa("Asdrubol", 24);
+       Pessoa.Funcionario f = new Pessoa.Funcionario(5000, "Design","Asdrubol",24);
 
-    public Professor(String Nome, int Idade, double Salario) {
-        this.setNome(Nome);
-        this.setIdade(Idade);
-        this.Salario = Salario;
-    }
+       p.FichaFuncionario();
+       f.calcularSalarioAnual();
 
-    public void exibirInfo() {
-        System.out.println("O nome da pessoa é " + Nome);
-        System.out.println("A idade da pessoa " + Nome + " é " + Idade + " anos");
-        System.out.println("O salário do professor é R$" + Salario);
-    }
-}
-
-public class AtividadePOO {
-    public static void main(String[] args) {
-        Aluno aluno = new Aluno("Yan", 20, "A123");
-        Professor professor = new Professor("Victor", 35, 4500.00);
-
-        aluno.exibirInfo();
-        System.out.println();
-        professor.exibirInfo();
-    }
+   }
 }
