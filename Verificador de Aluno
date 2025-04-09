@@ -1,0 +1,39 @@
+package VerificandoAluno;
+
+import java.util.Scanner;
+
+class Verificação {
+    public static void main(String[] args) {
+        Scanner input = new Scanner(System.in);
+        
+        String[] alunos = {"Yan", "Samuel", "Mestrinho", "Mosquitão", "Matheus", "Rafa", "Thiago"};
+        String[] professores = {"Victor", "Weldes", "Adriana"};
+        
+        System.out.println("Digite seu nome: ");
+        String nome = input.nextLine();
+        
+        boolean isaluno = false;
+        for (String aluno : alunos) {
+            if (aluno.equalsIgnoreCase(nome)) {
+                isaluno = true;
+                break;
+            }
+        }
+
+        boolean isprofessor = false;
+        for (String professor : professores) {
+            if (professor.equalsIgnoreCase(nome)) {
+                isprofessor = true;
+                break;
+            }
+        }
+
+        if (isaluno) {
+            System.out.println(nome + " é aluno.");
+        } else if (isprofessor) {
+            System.out.println(nome + " é professor.");
+        }
+
+        input.close();
+    }
+}
