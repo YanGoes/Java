@@ -1,0 +1,59 @@
+package cadastrandoProduto;
+
+public class cadastroProduto {
+
+    public static void main(String[] args) {
+        Produto produto = new Produto();
+        produto.setNome("Memória RAM");
+        produto.setPreco(200);
+        produto.setQuantidadeEstoque(25);
+
+        System.out.println("O nome do produto é " + produto.getNome());
+        System.out.println("O preço desse produto é de R$" + produto.getPreco());
+
+        System.out.println("Tem em estoque a quantidade de " + produto.getQuantidadeEstoque() + " do produto " + produto.getNome());
+
+        double precoComDesconto = produto.getPreco() * produto.getPercentual();
+        System.out.println("O produto com desconto fica no valor de R$" + precoComDesconto);
+    }
+
+    static class Produto {
+
+        private String nome;
+        private double preco;
+        private int quantidadeEstoque;
+        private double Percentual;
+
+        public Produto() {
+            this.Percentual = 0.15;
+        }
+
+        public String getNome() {
+            return nome;
+        }
+
+        public void setNome(String nome) {
+            this.nome = nome;
+        }
+
+        public double getPreco() {
+            return preco;
+        }
+
+        public void setPreco(double preco) {
+            this.preco = preco;
+        }
+
+        public int getQuantidadeEstoque() {
+            return quantidadeEstoque;
+        }
+
+        public void setQuantidadeEstoque(int quantidadeEstoque) {
+            this.quantidadeEstoque = quantidadeEstoque;
+        }
+
+        public double getPercentual() {
+            return Percentual;
+        }
+    }
+}
