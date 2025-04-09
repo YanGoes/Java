@@ -1,0 +1,70 @@
+package Heranca;
+
+class Pessoa {
+    String Nome;
+    int Idade;
+
+    public String getNome() {
+        return Nome;
+    }
+
+    public void setNome(String Nome) {
+        this.Nome = Nome;
+    }
+
+    public int getIdade() {
+        return Idade;
+    }
+
+    public void setIdade(int Idade) {
+        this.Idade = Idade;
+    }
+
+    public void exibirInfo() {
+        System.out.println("O nome da pessoa é " + Nome);
+        System.out.println("A idade da pessoa " + Nome + " é " + Idade + " anos");
+    }
+}
+
+class Aluno extends Pessoa {
+    String Matricula;
+
+    public Aluno(String Nome, int Idade, String Matricula) {
+        this.setNome(Nome);
+        this.setIdade(Idade);
+        this.Matricula = Matricula;
+    }
+
+    public void exibirInfo() {
+        System.out.println("O nome da pessoa é " + Nome);
+        System.out.println("A idade da pessoa " + Nome + " é " + Idade + " anos");
+        System.out.println("A matrícula da pessoa é " + Matricula);
+    }
+}
+
+class Professor extends Pessoa {
+    double Salario;
+
+    public Professor(String Nome, int Idade, double Salario) {
+        this.setNome(Nome);
+        this.setIdade(Idade);
+        this.Salario = Salario;
+    }
+
+    public void exibirInfo() {
+        System.out.println("O nome da pessoa é " + Nome);
+        System.out.println("A idade da pessoa " + Nome + " é " + Idade + " anos");
+        System.out.println("O salário do professor é R$" + Salario);
+    }
+}
+
+public class AtividadePOO {
+    public static void main(String[] args) {
+        Aluno aluno = new Aluno("Yan", 20, "A123");
+        Professor professor = new Professor("Victor", 35, 4500.00);
+
+        aluno.exibirInfo();
+        System.out.println();
+        professor.exibirInfo();
+    }
+}
