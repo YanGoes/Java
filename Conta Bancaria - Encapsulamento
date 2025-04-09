@@ -1,0 +1,64 @@
+package Encapsulamento; //Fique atento que tem dois códigos, onde ambos estão no mesmo package, porem sao códigos separas, um é contaBancaria e o outro é contaBancariaTeste
+
+public class contaBancaria {
+   private String Titular;
+   private int numeroConta;
+   private double Saldo;
+
+   public String getTitular() {
+       return Titular;
+   }
+
+   public void setTitular(String titular) {
+       this.Titular = titular;
+   }
+
+   public int getNumeroConta() {
+       return numeroConta;
+   }
+
+   public void setNumeroConta(int numeroConta) {
+       this.numeroConta = numeroConta;
+}
+
+   public double getSaldo() {
+       return Saldo;
+   }
+
+public void depositar(double valor){
+       if (valor < 0){
+   System.out.println("Deposite um valor positivo");
+       } else {
+           Saldo += valor;
+       }
+   } // ou poderia colocar somente this.saldo += valor;
+
+public void sacar(double valor){
+       if (Saldo < valor){
+           System.out.println("Saque um valor dentro do seu saldo");
+       } else if (Saldo > 0 ){
+       Saldo -= valor;
+   } else{
+       System.out.println("Saque um valor positivo");
+       }
+}
+}
+
+
+public class contaBancariaTeste {
+   public static void main(String[] args) {
+       contaBancaria conta = new contaBancaria();
+       conta.setTitular("Yan");
+       conta.setNumeroConta(98745621);
+
+       System.out.println("O nome do titular é " + conta.getTitular());
+       System.out.println("O numero da sua conta Bancária é " + conta.getNumeroConta());
+
+conta.depositar(10000);
+System.out.println("O saldo após o depósito é de " + conta.getSaldo());
+
+conta.sacar(1000);
+System.out.println("O saldo após o saque é " + conta.getSaldo());
+
+   }
+}
