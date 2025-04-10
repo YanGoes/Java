@@ -1,0 +1,34 @@
+package Heranca;
+
+class Animal{
+   protected String tipo;
+
+   public Animal(String tipo){
+       this.tipo = tipo;
+   }
+
+   protected void exibirTipo(){
+       System.out.println("Tipo de animal: " + tipo);
+   }
+}
+
+class Gato extends Animal{
+   private String nome;
+
+   public Gato(String tipo, String nome){
+       super(tipo);
+       this.nome = nome;
+   }
+
+   public void exibirDetalhes(){
+       super.exibirTipo();
+       System.out.println("Nome do Gato: " + nome);
+   }
+}
+
+public class pessoa{
+public static void main(String[] args) {
+   Gato gato = new Gato("Siames", "Wisky");
+   gato.exibirDetalhes();
+}
+}
