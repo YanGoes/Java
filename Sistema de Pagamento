@@ -1,0 +1,133 @@
+package SistemaPagamento;
+
+import java.util.Scanner;
+
+abstract class Pagamento {
+   protected double Saldo;
+   double valor;
+
+   public Pagamento(double Saldo) {
+       this.Saldo = Saldo;
+   }
+
+   public double getSaldo() {
+       return Saldo;
+   }
+
+   public void setSaldo(double saldo) {
+       this.Saldo = saldo;
+   }
+
+   public abstract void processarPagamento(double valor);
+}
+
+class CartaoDeCredito extends Pagamento {
+   public CartaoDeCredito(double saldo) {
+       super(saldo);
+   }
+
+   @Override
+   public void processarPagamento(double valor) {
+       System.out.println("Opção escolhida foi Cartão de Crédito");
+       if (valor > Saldo) {
+           System.out.println("Saldo insuficiente, impossível efetuar o pagamento.");
+       } else {
+           Saldo -= valor;
+           System.out.println("Pagamento efetuado com sucesso. O novo saldo da sua conta é: R$" + Saldo + " reais");
+       }
+   }
+}
+
+class Paypal extends Pagamento {
+   String usuario;
+
+   public Paypal(double saldo) {
+       super(saldo);
+   }
+
+   @Override
+   public void processarPagamento(double valor) {
+       Scanner scanner = new Scanner(System.in);
+       System.out.print("Digite o nome do usuário: ");
+       usuario = scanner.nextLine();
+
+       if (usuario.equals("João Henrique")) {
+           if (valor > Saldo) {
+               System.out.println("Saldo insuficiente, impossível efetuar o pagamento.");
+           } else {
+               Saldo -= valor;
+               System.out.println("Usuário válido, acesso permitido");
+               System.out.println("Pagamento efetuado com sucesso. O novo saldo da sua conta é: R$" + Saldo + " reais");
+           }
+       } else {
+           System.out.println("Usuário incorreto, tente novamente.");
+       }
+   }
+}
+
+class BoletoBancario extends Pagamento {
+   public BoletoBancario(double saldo) {
+       super(saldo);
+   }
+
+   @Override
+   public void processarPagamento(double valor) {
+       System.out.println("\nGerando boleto bancário...\n");
+       System.out.println("Dados do Boleto\n\n");
+       System.out.println("Nome do Banco\n Banco Cobranças\n");
+       System.out.println("Nome do Titular: João Henrique\n");
+       System.out.println("Data do Documento\n 21/10/2024\n");
+       System.out.println("Data do Processamento\n 21/10/2024\n");
+       System.out.println("Data de Vencimento\n 28/10/24\n");
+       System.out.println("Nº do documeto\n 080158081\n");
+       System.out.println("Valor do Documento\n R$" + valor + "reais\n");
+       System.out.println("\n\n033-7| 09933.58836.67800.110912. .94317.220183 9 65540000010000");
+       System.out.println("Valor do Boleto: R$" + valor + " reais");
+       Saldo -= valor;
+       System.out.println("Pagamento efetuado com sucesso.");
+       System.out.println("\nO saldo da conta atualmente e: R$" + Saldo + " reais");
+
+   }
+}
+
+public class SistemaDePagamento {
+   public static void main(String[] args) {
+       Scanner scanner = new Scanner(System.in);
+
+       Pagamento[] pagamentos = new Pagamento[3];
+       pagamentos[0] = new CartaoDeCredito(10000);
+       pagamentos[1] = new Paypal(5000);
+       pagamentos[2] = new BoletoBancario(3000);
+
+       System.out.println("-------- MÉTODO DE PAGAMENTO --------");
+       System.out.println("\nO Que deseja fazer?\n \nEscolha: \n\n1- Cartão, \n2- PayPal, \n3- Boleto\n");
+
+       System.out.println("Opicao escolhida: "); int Sistema = scanner.nextInt();
+
+       switch (Sistema) {
+           case 1:
+               System.out.print("\nDigite o valor do pagamento: R$");
+               double valorCartao = scanner.nextDouble();
+               pagamentos[0].processarPagamento(valorCartao);
+               break;
+
+           case 2:
+               System.out.print("\nDigite o valor do pagamento: R$");
+               double valorPaypal = scanner.nextDouble();
+               pagamentos[1].processarPagamento(valorPaypal);
+               break;
+
+           case 3:
+               System.out.print("\nDigite o valor do boleto: R$");
+               double valorBoleto = scanner.nextDouble();
+               pagamentos[2].processarPagamento(valorBoleto);
+               break;
+
+           default:
+               System.out.println("opicao inválida.");
+               break;
+       }
+
+       scanner.close();
+   }
+}
