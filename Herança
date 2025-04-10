@@ -1,1 +1,45 @@
+package Herança;
 
+public class ExercicioDeHeranca {
+
+   public class Pessoa{
+       String Nome;
+       int Idade;
+
+       public Pessoa(String Nome, int Idade){
+           this.Nome = Nome;
+           this.Idade = Idade;
+       }
+
+       void FichaFuncionario(){
+           System.out.println("O nome do funcionario é " + Nome);
+           System.out.println("A idade do funcionario é " + Idade);
+
+   }
+
+   static class Funcionario extends Pessoa{
+           public double Salario;
+           public String Cargo;
+
+           public Funcionario(double Salario, String Cargo, String Nome, int Idade){
+           super(Nome, Idade);
+           this.Cargo = Cargo;
+           this.Salario = Salario;
+           }
+   }
+
+       void calcularSalarioAnual(double Salario){
+           System.out.println(Salario * 12);
+
+   }
+   }
+
+   public void main(String[] args) {
+       Pessoa p = new Pessoa("Asdrubol", 24);
+       Pessoa.Funcionario f = new Pessoa.Funcionario(5000, "Design","Asdrubol",24);
+
+       p.FichaFuncionario();
+       f.calcularSalarioAnual();
+
+   }
+}
