@@ -1,0 +1,65 @@
+package RevisãoProva;
+
+import java.util.Scanner;
+
+import static java.lang.Math.pow;
+
+abstract class Forma {
+   public abstract double calcularArea();
+}
+
+class Circulo extends Forma {
+   private double raio;
+   private final double pi = 3.14159265359;
+
+
+   public Circulo(double raio) {
+       this.raio = raio;
+   }
+
+   @Override
+   public double calcularArea() {
+       System.out.println("\nA area do circulo eh: " + pi * Math.pow(raio, 2));
+       return 0;
+   }
+}
+
+class Retangulo extends Forma {
+   private double base;
+   private double altura;
+
+   public Retangulo(double base, double altura) {
+       this.base = base;
+       this.altura = altura;
+   }
+
+   @Override
+   public double calcularArea() {
+       System.out.println("\nA area do retangulo eh: " + base * altura);
+       return 0;
+   }
+}
+
+public class ExerciciosDeClasseAbstrata {
+   public static void main(String[] args) {
+       Scanner s = new Scanner(System.in);
+
+       System.out.println("Digite o raio do círculo: ");
+       double raio = s.nextDouble();
+       Forma circulo = new Circulo(raio);
+
+       circulo.calcularArea();
+
+       System.out.println("\nDigite o valor da base do retangulo: ");
+       double base = s.nextDouble();
+
+       System.out.println("\nDigite o valor da altura do retangulo: ");
+       double altura = s.nextDouble();
+
+       Forma retangulo = new Retangulo(base, altura);
+
+       retangulo.calcularArea();
+
+       s.close();
+   }
+}
