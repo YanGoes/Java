@@ -1,0 +1,49 @@
+package sobrecargaDeMetodos;
+
+import java.util.Scanner;
+
+public class ExercicioDeSobrecargaDeMétodos {
+   public static class Calculadora{
+       public  int somar(int x, int y){
+           return x + y;
+       };
+
+       public double somar(double x, double y){
+           return x + y;
+       }
+
+       public int somar(int[] numeros){
+           int soma = 0;
+           for (int i = 0; i < numeros.length; i++){
+               soma += numeros[i];
+           }
+           return soma;
+       }
+   }
+
+   public static void main(String[] args) {
+       Calculadora calc = new Calculadora();
+       Scanner s = new Scanner(System.in);
+
+       System.out.println("Digite o primeiro numero inteiro da soma: ");
+       int x = s.nextInt();
+
+       System.out.println("\nDigite o segundo numero inteiro da soma: ");
+       int y = s.nextInt();
+
+       System.out.println("\nA soma dos dois valores digitados eh: " + calc.somar(x, y));
+      
+       System.out.println("Digite o primeiro numero double da soma: ");
+       double xdouble = s.nextDouble();
+
+       System.out.println("\nDigite o segundo numero double da soma: ");
+       double ydouble = s.nextDouble();
+
+       System.out.println("\nA soma dos dois valores digitados eh: " + calc.somar(xdouble, ydouble));
+
+       int[] numeros = {1,2,3,4,5,6,7,8,9,10};
+       System.out.println("\nA soma da nossa lista 1 - 2 - 3 - 4 - 5 - 6 - 7 - 8 - 9 - 10 eh: " + calc.somar(numeros));
+
+       s.close();
+   }
+}
