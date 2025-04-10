@@ -1,0 +1,18 @@
+import java.util.Scanner;
+import javax.swing.*;
+public class ConversorDeTemperatura {
+   Scanner sc = new Scanner(System.in);
+   public static void main(String[] args) {
+       JOptionPane.showMessageDialog(null, "Convresor de temperatura");
+       int escolha = Integer.parseInt(JOptionPane.showInputDialog("Como deseja converter a temperatura: \n 1- De Celsius para Fahrenheit \n 2- De Fahrenheit para Celsius"));
+
+       if( escolha == 1) {
+           double temperatura = Double.parseDouble((JOptionPane.showInputDialog("Digite a temperatura em celsius: \n")));
+           JOptionPane.showMessageDialog(null, "A temperatura de Celsius para Fahrenheit é " + (temperatura * 1.8 + 32));
+
+       } else if (escolha == 2){
+               double temperatura = Double.parseDouble((JOptionPane.showInputDialog("Digite a temperatura em Fahrenheit: \n" )));
+               JOptionPane.showMessageDialog(null, "A temperatura de Fahrenheit para  é Celsius " + (temperatura - 32 )/ 1.8);
+           }
+       }
+}
