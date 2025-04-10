@@ -1,0 +1,76 @@
+package Polimorfismo;
+
+import java.util.Scanner;
+import java.util.List;
+import static java.lang.Math.pow;
+import java.util.ArrayList;
+
+abstract class Formaa {
+   public abstract double calcularArea();
+}
+
+class Circuloo extends Forma {
+   private double raio;
+   private final double pi = 3.14159265359;
+
+   public Circuloo(double raio) {
+       this.raio = raio;
+   }
+
+   @Override
+   public double calcularArea() {
+       System.out.println("A area do circulo eh: " + pi * Math.pow(raio, 2));
+       return 0;
+   }
+}
+
+class Retanguloo extends Forma {
+   private double base;
+   private double altura;
+
+   public Retanguloo(double base, double altura) {
+       this.base = base;
+       this.altura = altura;
+   }
+
+   @Override
+   public double calcularArea() {
+       System.out.println("A area do retangulo eh: " + base * altura);
+       return 0;
+   }
+}
+
+public class ExerciciosPolimorfismo {
+   public static void main(String[] args) {
+       Scanner s = new Scanner(System.in);
+
+       List<Forma> formas = new ArrayList<>();
+
+       System.out.println("Digite o raio do círculo: ");
+       double raio = s.nextDouble();
+       Forma circulo = new Circulo(raio);
+       System.out.println("\nRaio armazenado com sucesso, o resultado será exibido depois de fornecer os dados para o calculo da area do retangulo");
+
+       formas.add(circulo);
+
+       System.out.println("Digitando valores da base e altura do retangulo");
+       System.out.println("\nDigite o valor da base do retangulo: ");
+       double base = s.nextDouble();
+
+       System.out.println("\nDigite o valor da altura do retangulo: ");
+       double altura = s.nextDouble();
+
+       Forma retangulo = new Retangulo(base, altura);
+
+       formas.add(retangulo);
+
+       retangulo.calcularArea();
+
+       System.out.println("\nCalculo das areas eh: ");
+               for (Forma forma : formas){
+                   forma.calcularArea();
+       };
+
+       s.close();
+   }
+}
