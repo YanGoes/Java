@@ -1,0 +1,101 @@
+package Biblioteca;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class ExercicioSistemaDeGestãoDeBiblioteca {
+
+   abstract class ItemBiblioteca {
+       protected String titulo;
+       protected String autor;
+       protected int anoPublicacao;
+
+       public ItemBiblioteca(String titulo, String autor, int anoPublicacao) {
+           this.titulo = titulo;
+           this.autor = autor;
+           this.anoPublicacao = anoPublicacao;
+       }
+
+       public abstract String getInfo();
+   }
+
+   class Livro extends ItemBiblioteca {
+       private String generoLiterario;
+
+       public Livro(String titulo, String autor, int anoPublicacao, String generoLiterario) {
+           super(titulo, autor, anoPublicacao);
+           this.generoLiterario = generoLiterario;
+       }
+
+       @Override
+       public String getInfo() {
+           return "Livro: " + titulo + ", Autor: " + autor + ", Ano: " + anoPublicacao + ", Gênero: " + generoLiterario;
+       }
+   }
+
+   class Revista extends ItemBiblioteca {
+       private int numeroDaEdicao;
+
+       public Revista(String titulo, String autor, int anoPublicacao, int numeroDaEdicao) {
+           super(titulo, autor, anoPublicacao);
+           this.numeroDaEdicao = numeroDaEdicao;
+       }
+
+       @Override
+       public String getInfo() {
+           return "Revista: " + titulo + ", Autor: " + autor + ", Ano: " + anoPublicacao + ", Edição: " + numeroDaEdicao;
+       }
+   }
+
+   class Usuario {
+       private String nome;
+       private String idUsuario;
+       private List<ItemBiblioteca> itensEmprestados;
+
+       public Usuario(String nome, String idUsuario) {
+           this.nome = nome;
+           this.idUsuario = idUsuario;
+           this.itensEmprestados = new ArrayList<>();
+       }
+
+       public void emprestarItem(ItemBiblioteca item) {
+           itensEmprestados.add(item);
+           System.out.println("Item emprestado: " + item.getInfo());
+       }
+
+
+       public void devolverItem(ItemBiblioteca item) {
+           if (itensEmprestados.remove(item)) {
+               System.out.println("Item devolvido: " + item.getInfo());
+           } else {
+               System.out.println("Item não encontrado na lista de empréstimos.");
+           }
+       }
+
+       public void mostrarItensEmprestados() {
+           System.out.println("Itens emprestados por " + nome + ":");
+           for (ItemBiblioteca item : itensEmprestados) {
+               System.out.println("- " + item.getInfo());
+           }
+       }
+   }
+
+   public class SistemaDeBiblioteca {
+
+       public void main(String[] args) {
+           Livro livro1 = new Livro("Dom Casmurro", "Machado de Assis", 1899, "Romance");
+           Revista revista1 = new Revista("Superinteressante", "Editora Abril", 2022, 123);
+
+           Usuario usuario = new Usuario("João Silva", "12345");
+
+           usuario.emprestarItem(livro1);
+           usuario.emprestarItem(revista1);
+
+           usuario.mostrarItensEmprestados();
+
+           usuario.devolverItem(livro1);
+
+           usuario.mostrarItensEmprestados();
+       }
+   }
+}
