@@ -1,18 +1,28 @@
-# Aula 4 - Cadastro de Alunos Em Camadas (CEUB)
+# Aula 4 - Cadastro de Alunos em Camadas
 
 Projeto Java Desktop desenvolvido para a disciplina **Desenvolvimento de Sistemas (CEUB)** utilizando **Java Swing**, organização em camadas e versionamento com Git.
 
 ## Objetivo
 
-Aplicar os conceitos de Programação Orientada a Objetos, separação de responsabilidades e controle de versões por meio de um sistema de cadastro de alunos.
+Desenvolver um sistema de cadastro de alunos aplicando conceitos de Programação Orientada a Objetos, separação de responsabilidades e controle de versões.
 
 ## Funcionalidades
 
-- Cadastro de alunos;
-- Listagem dos alunos cadastrados;
-- Busca por nome;
-- Busca por curso;
-- Exibição do total de alunos cadastrados.
+- Cadastro de alunos.
+- Validação do nome (aceita apenas letras e espaços).
+- Cadastro da instituição de ensino.
+- Validação do semestre (1º ao 10º).
+- Listagem dos alunos cadastrados.
+- Busca por nome.
+- Busca por curso.
+- Busca por instituição.
+- Contagem do total de alunos cadastrados.
+
+## Como executar
+
+1. Abra o projeto no Eclipse ou IntelliJ IDEA.
+2. Execute a classe `br.edu.ceub.ds.aula04.app.Principal`.
+3. Utilize a interface para cadastrar, listar, buscar e contar alunos.
 
 ## Estrutura do projeto
 
@@ -23,30 +33,24 @@ src/
         └── ceub/
             └── ds/
                 └── aula04/
-                    ├── br.edu.ceub.ds.aula04.model/
+                    ├── model/
                     │   └── Aluno.java
-                    ├── br.edu.ceub.ds.aula04.service/
+                    ├── service/
                     │   └── CadastroAlunos.java
-                    ├── br.edu.ceub.ds.aula04.view/
+                    ├── view/
                     │   └── TelaCadastroAluno.java
-                    └── br.edu.ceub.ds.aula04.app/
+                    └── app/
                         └── Principal.java
 ```
 
-### Organização das camadas
+## Organização das camadas
 
 | Pacote | Responsabilidade |
 |---------|------------------|
-| `model` | Entidade `Aluno` e seus atributos. |
-| `service` | Regras de negócio e gerenciamento dos alunos. |
+| `model` | Representa a entidade `Aluno` e seus atributos. |
+| `service` | Contém as regras de negócio e operações sobre os alunos. |
 | `view` | Interface gráfica desenvolvida em Java Swing. |
 | `app` | Classe responsável por iniciar a aplicação. |
-
-## Como executar
-
-1. Abra o projeto no Eclipse ou IntelliJ IDEA.
-2. Execute a classe `br.edu.ceub.ds.aula04.app.Principal`.
-3. Utilize a interface para cadastrar, buscar, listar e contar alunos.
 
 ## Tecnologias utilizadas
 
@@ -56,8 +60,19 @@ src/
 - GitHub
 - Eclipse / IntelliJ IDEA
 
+## Melhorias implementadas
+
+Durante o desenvolvimento foram adicionadas as seguintes melhorias:
+
+- Organização do projeto em camadas (`model`, `service`, `view` e `app`).
+- Campo obrigatório **Instituição** no cadastro.
+- Nova coluna **Instituição** na tabela de alunos.
+- Busca de alunos por instituição.
+- Validação do nome para impedir números.
+- Atualização automática da tabela e do contador de alunos.
+
 ## Autor
 
 **Yan Henrique Rios Goes Santos**
 
-Projeto desenvolvido para fins acadêmicos na disciplina **Desenvolvimento de Sistemas**.
+Projeto desenvolvido para a disciplina **Desenvolvimento de Sistemas (CEUB)**.

@@ -4,8 +4,10 @@ import br.edu.ceub.ds.aula04.model.Aluno;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class CadastroAlunos {
     private List<Aluno> alunos = new ArrayList<>();
+
 
     public void adicionar(Aluno aluno) {
         alunos.add(aluno);
@@ -36,6 +38,18 @@ public class CadastroAlunos {
                 resultado.add(a);
             }
         }
+        return resultado;
+    }
+
+    public List<Aluno> buscarPorInstituicao(String instituicao) {
+        List<Aluno> resultado = new ArrayList<>();
+
+        for (Aluno a : alunos) {
+            if (a.getInstituicao().equalsIgnoreCase(instituicao.trim())) {
+                resultado.add(a);
+            }
+        }
+
         return resultado;
     }
 }

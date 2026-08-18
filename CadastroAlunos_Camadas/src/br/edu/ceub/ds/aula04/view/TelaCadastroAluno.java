@@ -13,11 +13,13 @@ public class TelaCadastroAluno extends JDialog {
     private JTextField txtNome;
     private JTextField txtCurso;
     private JTextField txtSemestre;
+    private JTextField txtInstituicao;
 
     private JButton btnCadastrar;
     private JButton btnListar;
     private JButton btnBuscarNome;
     private JButton btnBuscarCurso;
+    private JButton btnBuscarInstituicao;
     private JButton btnContar;
 
     private JTable tabelaAlunos;
@@ -44,7 +46,7 @@ public class TelaCadastroAluno extends JDialog {
         panelTop.add(lblTitulo, BorderLayout.NORTH);
 
         // Formulário
-        JPanel panelForm = new JPanel(new GridLayout(3, 2, 8, 8));
+        JPanel panelForm = new JPanel(new GridLayout(4, 2, 8, 8));
         panelForm.setBorder(BorderFactory.createEmptyBorder(10, 20, 10, 20));
 
         panelForm.add(new JLabel("Nome:"));
@@ -55,6 +57,10 @@ public class TelaCadastroAluno extends JDialog {
         txtCurso = new JTextField();
         panelForm.add(txtCurso);
 
+        panelForm.add(new JLabel("Instituição:"));
+        txtInstituicao = new JTextField();
+        panelForm.add(txtInstituicao);
+
         panelForm.add(new JLabel("Semestre:"));
         txtSemestre = new JTextField();
         panelForm.add(txtSemestre);
@@ -62,18 +68,21 @@ public class TelaCadastroAluno extends JDialog {
         panelTop.add(panelForm, BorderLayout.CENTER);
 
         // Painel de Botões de Ação
-        JPanel panelBotoes = new JPanel(new FlowLayout(FlowLayout.CENTER, 8, 8));
+        JPanel panelBotoes = new JPanel(new GridLayout(2, 3, 8, 8));
+        panelBotoes.setBorder(BorderFactory.createEmptyBorder(5, 20, 10, 20));
 
         btnCadastrar = new JButton("Cadastrar");
         btnListar = new JButton("Listar Todos");
         btnBuscarNome = new JButton("Buscar p/ Nome");
         btnBuscarCurso = new JButton("Buscar p/ Curso");
+        btnBuscarInstituicao = new JButton("Buscar p/ Instituição");
         btnContar = new JButton("Contar Alunos");
 
         panelBotoes.add(btnCadastrar);
         panelBotoes.add(btnListar);
         panelBotoes.add(btnBuscarNome);
         panelBotoes.add(btnBuscarCurso);
+        panelBotoes.add(btnBuscarInstituicao);
         panelBotoes.add(btnContar);
 
         panelTop.add(panelBotoes, BorderLayout.SOUTH);
@@ -81,7 +90,7 @@ public class TelaCadastroAluno extends JDialog {
         add(panelTop, BorderLayout.NORTH);
 
         // Painel Inferior (Tabela de Listagem)
-        String[] colunas = {"Nome", "Curso", "Semestre"};
+        String[] colunas = {"Nome", "Curso", "Instituição", "Semestre"};
         tableModel = new DefaultTableModel(colunas, 0) {
             @Override
             public boolean isCellEditable(int row, int column) {
@@ -105,13 +114,16 @@ public class TelaCadastroAluno extends JDialog {
         btnListar.addActionListener(e -> listarAlunos());
         btnBuscarNome.addActionListener(e -> buscarPorNome());
         btnBuscarCurso.addActionListener(e -> buscarPorCurso());
+        btnBuscarInstituicao.addActionListener(e -> buscarPorInstituicao());
         btnContar.addActionListener(e -> contarAlunos());
+
 
         // Carrega os dados na tabela ao abrir
         listarAlunos();
     }
 
     private void cadastrarAluno() {
+        String instituicao = txtInstituicao.getText().trim();
         String nome = txtNome.getText().trim();
         String curso = txtCurso.getText().trim();
         String textoSemestre = txtSemestre.getText().trim();
@@ -131,6 +143,16 @@ public class TelaCadastroAluno extends JDialog {
         if (curso.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Por favor, preencha o campo 'Curso'.", "Aviso", JOptionPane.WARNING_MESSAGE);
             txtCurso.requestFocus();
+            return;
+        }
+
+        if (instituicao.isEmpty()) {
+            JOptionPane.showMessageDialog(
+                    this,
+                    "Por favor, preencha o campo 'Instituição'.",
+                    "Aviso",
+                    JOptionPane.WARNING_MESSAGE);
+            txtInstituicao.requestFocus();
             return;
         }
 
@@ -155,7 +177,7 @@ public class TelaCadastroAluno extends JDialog {
             return;
         }
 
-        Aluno novoAluno = new Aluno(nome, curso, semestre);
+        Aluno novoAluno = new Aluno(nome, curso, instituicao, semestre);
         service.adicionar(novoAluno);
 
         JOptionPane.showMessageDialog(this, "Aluno cadastrado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
@@ -193,6 +215,30 @@ public class TelaCadastroAluno extends JDialog {
         }
     }
 
+    private void buscarPorInstituicao() {
+        String instituicaoBusca = JOptionPane.showInputDialog(
+                this,
+                "Digite o nome da instituição:",
+                "Buscar por Instituição",
+                JOptionPane.QUESTION_MESSAGE);
+
+        if (instituicaoBusca != null && !instituicaoBusca.trim().isEmpty()) {
+
+            List<Aluno> resultados =
+                    service.buscarPorInstituicao(instituicaoBusca);
+
+            if (!resultados.isEmpty()) {
+                atualizarTabela(resultados);
+            } else {
+                JOptionPane.showMessageDialog(
+                        this,
+                        "Nenhum aluno encontrado para a instituição informada.",
+                        "Resultado",
+                        JOptionPane.WARNING_MESSAGE);
+            }
+        }
+    }
+
     private void contarAlunos() {
         int quantidade = service.quantidade();
         JOptionPane.showMessageDialog(this, "Atualmente existem " + quantidade + " aluno(s) cadastrado(s).", "Total de Alunos", JOptionPane.INFORMATION_MESSAGE);
@@ -201,7 +247,12 @@ public class TelaCadastroAluno extends JDialog {
     private void atualizarTabela(List<Aluno> lista) {
         tableModel.setRowCount(0); // Limpa as linhas anteriores
         for (Aluno a : lista) {
-            tableModel.addRow(new Object[]{a.getNome(), a.getCurso(), a.getSemestre() + "º"});
+            tableModel.addRow(new Object[]{
+                    a.getNome(),
+                    a.getCurso(),
+                    a.getInstituicao(),
+                    a.getSemestre() + "º"
+            });
         }
         lblTotal.setText("Total de alunos cadastrados: " + service.quantidade());
     }
@@ -209,6 +260,7 @@ public class TelaCadastroAluno extends JDialog {
     private void limparCampos() {
         txtNome.setText("");
         txtCurso.setText("");
+        txtInstituicao.setText("");
         txtSemestre.setText("");
         txtNome.requestFocus();
     }
