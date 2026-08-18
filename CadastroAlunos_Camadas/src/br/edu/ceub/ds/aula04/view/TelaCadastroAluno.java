@@ -21,6 +21,7 @@ public class TelaCadastroAluno extends JDialog {
     private JButton btnBuscarCurso;
     private JButton btnBuscarInstituicao;
     private JButton btnContar;
+    private JButton btnLimparFiltros;
 
     private JTable tabelaAlunos;
     private DefaultTableModel tableModel;
@@ -68,8 +69,10 @@ public class TelaCadastroAluno extends JDialog {
         panelTop.add(panelForm, BorderLayout.CENTER);
 
         // Painel de Botões de Ação
-        JPanel panelBotoes = new JPanel(new GridLayout(2, 3, 8, 8));
+        JPanel panelBotoes = new JPanel(new BorderLayout(8, 8));
         panelBotoes.setBorder(BorderFactory.createEmptyBorder(5, 20, 10, 20));
+
+        JPanel panelGrid = new JPanel(new GridLayout(2, 3, 8, 8));
 
         btnCadastrar = new JButton("Cadastrar");
         btnListar = new JButton("Listar Todos");
@@ -77,13 +80,22 @@ public class TelaCadastroAluno extends JDialog {
         btnBuscarCurso = new JButton("Buscar p/ Curso");
         btnBuscarInstituicao = new JButton("Buscar p/ Instituição");
         btnContar = new JButton("Contar Alunos");
+        btnLimparFiltros = new JButton("Limpar Filtros");
 
-        panelBotoes.add(btnCadastrar);
-        panelBotoes.add(btnListar);
-        panelBotoes.add(btnBuscarNome);
-        panelBotoes.add(btnBuscarCurso);
-        panelBotoes.add(btnBuscarInstituicao);
-        panelBotoes.add(btnContar);
+// Os 6 botões ficam na grade 2x3
+        panelGrid.add(btnCadastrar);
+        panelGrid.add(btnListar);
+        panelGrid.add(btnBuscarNome);
+
+        panelGrid.add(btnBuscarCurso);
+        panelGrid.add(btnBuscarInstituicao);
+        panelGrid.add(btnContar);
+
+// A grade fica no centro
+        panelBotoes.add(panelGrid, BorderLayout.CENTER);
+
+// O botão Limpar Filtros fica sozinho embaixo
+        panelBotoes.add(btnLimparFiltros, BorderLayout.SOUTH);
 
         panelTop.add(panelBotoes, BorderLayout.SOUTH);
 
@@ -116,6 +128,7 @@ public class TelaCadastroAluno extends JDialog {
         btnBuscarCurso.addActionListener(e -> buscarPorCurso());
         btnBuscarInstituicao.addActionListener(e -> buscarPorInstituicao());
         btnContar.addActionListener(e -> contarAlunos());
+        btnLimparFiltros.addActionListener(e -> listarAlunos());
 
 
         // Carrega os dados na tabela ao abrir
